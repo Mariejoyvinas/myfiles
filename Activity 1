@@ -1,1 +1,140 @@
+Module 1: ACTIVITY 
+
+DECLARE
+    item_name VARCHAR2(50) := 'Kitty';
+    item_type VARCHAR2(50) := 'Teddy Bear';
+    item_quantity NUMBER := 1;
+    item_color VARCHAR2(50) := 'Light Brown';
+BEGIN
+    DBMS_OUTPUT.PUT_LINE('Item Details:');
+    DBMS_OUTPUT.PUT_LINE('Name: ' || item_name);
+    DBMS_OUTPUT.PUT_LINE('Type: ' || item_type);
+    DBMS_OUTPUT.PUT_LINE('Quantity: ' || item_quantity);
+    DBMS_OUTPUT.PUT_LINE('Color: ' || item_color);
+END;
+
+
+Challenge Questions:
+
+• How would you modify the code if you added another copy of the item?
+-Using UPDATE to create new row.
+
+• Could you add an extra detail, like genre or type?
+-yes,  using  DECLARE section to define a new variable (e.g., item_genre).
+
+Module 2: ACTIVITY 
+
+DECLARE
+    monthly_savings NUMBER := 200;
+    months NUMBER := 5;  
+    total_savings NUMBER := 0; 
+BEGIN
+    FOR i IN 1..months LOOP
+        total_savings := total_savings + monthly_savings;
+        DBMS_OUTPUT.PUT_LINE('Month ' || i || ': Total Savings = $' || total_savings);
+    END LOOP;
+END;
+
+
+Challenge Questions:
+
+• How would you modify the code if your monthly savings amount changed?
+- I use Update to modify the code for monthly savings amount changed.
+
+
+Module 3: ACTIVITY 
+
+DECLARE
+    player_score NUMBER := 100;
+    passing_score NUMBER := 95;
+BEGIN
+    IF player_score >= passing_score THEN
+        IF player_score >= 100 THEN
+            DBMS_OUTPUT.PUT_LINE('Amazing! Perfect score!');
+        ELSE
+            DBMS_OUTPUT.PUT_LINE('Congratulations! You qualify for the reward.');
+        END IF;
+    ELSE
+        DBMS_OUTPUT.PUT_LINE('Sorry, you did not qualify.');
+    END IF;
+END;
+
+
+Challenge Questions:
+ • What happens if the condition changes (e.g., passing grade increases)?
+-If the passing grade increases, you would simply update the passing_score value
+
+
+Module 4: ACTIVITY
+CREATE TABLE  jm_fav_books (
+    book_id NUMBER,
+    title VARCHAR2(100),
+    author VARCHAR2(50),
+    year_published NUMBER
+);
+ 
+INSERT INTO jm_fav_books VALUES (1, 'superbook', 'Salinger', 1951);
+INSERT INTO jm_fav_books VALUES (2, 'Peter pan', 'George', 1949);
+INSERT INTO jm_fav_books VALUES (3, 'Aladin', 'Lee', 1960);
+INSERT INTO jm_fav_books VALUES (4, 'Pride and Prejudice', 'Jane Austen', 1813);
+
+Challenge question:
+• Update an items details (e.g., change the year or type). 
+-UPDATE jm_fav_books 
+SET year_published = 1950 
+WHERE title = 'Peter pan';
+
+•Delete an item from the table 
+-DELETE FROM jm_fav_books 
+WHERE title = 'Pride and Prejudice';
+
+Module 5: ACTIVITY
+
+CREATE TABLE fav_shirts (
+    shirt_id NUMBER,
+    name VARCHAR2(100),
+    color VARCHAR2(30));
+
+INSERT INTO fav_shirts VALUES (1, 'Graphic Tee', 'Blue');
+INSERT INTO fav_shirts VALUES (2, 'Plain T-Shirt', 'Red');
+INSERT INTO fav_shirts VALUES (3, 'Vintage Shirt', 'Black');
+INSERT INTO fav_shirts VALUES (4, 'Casual Polo', 'White');
+
+UPDATE fav_shirts 
+SET color = 'Green' 
+WHERE name = 'Plain T-Shirt' ;
+
+DELETE FROM fav_shirts 
+WHERE name = 'Casual Polo' ;
+
+
+CREATE TABLE game1_friends (
+    friend_id NUMBER,
+    friend_name VARCHAR2(50),
+    role VARCHAR2(20)
+);
+
+INSERT INTO game1_friends VALUES (1, 'Alex', 'Leader');
+INSERT INTO game1_friends VALUES (2, 'Mark', 'Player');
+INSERT INTO game1_friends VALUES (3, 'Jordan', 'Player');
+
+
+CREATE TABLE game2_friends (
+    friend_id NUMBER,
+    friend_name VARCHAR2(50),
+    role VARCHAR2(20)
+);
+
+INSERT INTO game2_friends VALUES (1, 'Alex', 'Player');
+INSERT INTO game2_friends VALUES (4, 'Jamie', 'Leader');
+INSERT INTO game2_friends VALUES (3, 'Jordan', 'Player');
+
+SELECT game1_friends.friend_name
+FROM game1_friends
+JOIN game2_friends 
+ON game1_friends.friend_id = game2_friends.friend_id;
+
+
+
+
 
