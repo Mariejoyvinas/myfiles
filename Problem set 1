@@ -1,0 +1,54 @@
+Problem Set 1: Personalized Table Creation and Relationship Setup
+
+1. DEFINE YOUR ENTITIES:
+   •Players Table:
+     player_id INT(Primary Key)
+     username VARCHAR(50)
+     email VARCHAR(100)
+     age INT
+
+   •Game Table:
+     game_id INT (Primary Key)
+     title VARCHAR(100)
+     player_id INT (Foreign Key referencing Players.player_id)
+
+2. Enforce a Unique Constraint
+   Unique constraints are applied on USERNAME  in PLAYER  and TITLE in GAMES
+
+3. EXAMPLE OUTPUT 
+  
+   CREATE TABLE Jm_player (
+    player_id NUMBER PRIMARY KEY,
+    user_name VARCHAR2(100),
+    email VARCHAR2(100),
+    age NUMBER);
+
+INSERT INTO Jm_player(player_id, user_name, email, age)
+VALUES(1, 'H2Ow', 'H2Ow@gmail.com', 16);
+
+INSERT INTO Jm_player(player_id, user_name, email, age)
+VALUES(2, 'ky', 'ky@gmail.com', 19);
+
+INSERT INTO Jm_player(player_id, user_name, email, age)
+VALUES(3, 'Badss', 'Badss@gmail.com', 18);
+
+ 
+   CREATE TABLE Mj_Games(
+    game_id INT PRIMARY KEY,
+    title VARCHAR2(100),
+    player_id NUMBER,
+    FOREIGN KEY (player_id) REFERENCES Jm_Player(player_id)
+);
+
+ INSERT INTO Mj_Games (game_id, title, player_id)
+VALUES (3, 'Mobile legends', 1);
+       
+ INSERT INTO Mj_Games (game_id, title, player_id)
+VALUES (2, 'COD', 2);
+       
+INSERT INTO Mj_Games(game_id, title, player_id)
+VALUES (3, 'Block blast', 1);
+      
+
+4. Reflection
+   Foreign keys ensure that each game entry in Games is associated with an existing player in Players, while unique constraints on `username` and `title` prevent duplicate records, maintaining data accuracy. This setup ensures each player and game has unique entries, making it easy to track players and the games they participate in.
