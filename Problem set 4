@@ -1,0 +1,19 @@
+Problem Set 4: Batch Deletes and Cascade Constraints
+
+1. Delete Records Based on a Condition
+In this step, you’ll delete records of players who are younger than a certain age (e.g., 18 years) from the Jm_Player table.
+
+DELETE FROM Jm_Player WHERE age < 18;
+
+
+This command removes all records of players under 18 from the Jm_Player table. You can adjust the age condition based on your needs.
+
+   
+2. Drop a Table with Cascade Constraints:
+To achieve this, you use the CASCADE CONSTRAINTS clause when dropping the Jm_Player
+
+DROP TABLE Jm_Player CASCADE CONSTRAINTS; 
+
+
+3. Reflection:
+   CASCADE CONSTRAINTS ensure that when a record in Players is deleted, related records in Games are automatically removed. This prevents orphaned data and keeps the database organized by enforcing that every game must have a valid player reference.
