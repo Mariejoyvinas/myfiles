@@ -1,0 +1,43 @@
+Problem Set 3: Personalized Duplicate Testing and Error Handling
+
+1. Create and Test Duplicates:
+
+   CREATE TABLE Player(
+    player_id INT PRIMARY KEY,
+    username VARCHAR(50),
+    email VARCHAR(100),
+    age NUMBER);
+
+
+
+2. Example Error Testing Script
+Insert some sample records with unique user_name and title values.
+
+INSERT INTO Jm_Player (player_id, user_name, email, age)
+VALUES (1, 'H2Ow', 'H2Ow@gmail.com', 16);
+
+INSERT INTO Jm_Player (player_id, user_name, email, age)
+VALUES (2, 'ky', 'ky@gmail.com', 19);
+
+INSERT INTO Jm_Player (player_id, user_name, email, age)
+VALUES (3, 'Badss', 'Badss@gmail.com', 18);
+
+
+3.Attempt duplicate
+Attempt to insert duplicate data into user_name in the Jm_Player table and title in the Mj_Games table to trigger unique constraint.
+
+INSERT INTO Jm_Player (player_id, user_name, email, age)
+VALUES (4, 'H2Ow', 'new_email@gmail.com', 20);  
+
+INSERT INTO Mj_Games (game_id, title, player_id)
+VALUES (4, 'Mobile Legends', 2); 
+
+4.Observed and document errors 
+
+When attempting to insert duplicates, you should see error messages similar to:
+
+ORA-00001: unique constraint (SCHEMA_NAME.USER_NAME) violated 
+
+
+3. Reflection:
+   The database will generate an error, e.g., `ORA-00001: unique constraint violated`, indicating that the unique constraints were breached. Unique constraints prevent duplicate data entry, helping to maintain the integrity of player identities and game records
