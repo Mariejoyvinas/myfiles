@@ -1,0 +1,25 @@
+Problem Set 2: Custom Modifications Using ALTER Command
+
+1. Add a New Column to Each Table:
+   - In Players add `total_score` to represent a player’s score.
+   - In Games, add `rating` to represent the players rating.
+
+
+ALTER TABLE Jm_player
+ADD total_score INT DEFAULT 0;
+
+ALTER TABLE Mj_Games
+ADD rating DECIMAL(2, 1);
+
+
+2. Apply a Unique Constraint:
+   
+ ALTER TABLE Jm_player
+ADD CONSTRAINT unique_username UNIQUE (user_name);
+
+ ALTER TABLE Mj_Games
+ADD CONSTRAINT check_rating_range CHECK (rating BETWEEN 1 AND 5);
+
+
+3. Reflection:
+ The unique constraint on `rank` ensures that each player has a distinct position, maintaining a reliable ranking system. This adds depth to the data, helping to track and organize player standings effectively
