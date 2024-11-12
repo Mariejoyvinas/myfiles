@@ -1,0 +1,46 @@
+Problem Set 5: Challenge - Personalized Database Design scenario with unique constraint 
+
+1. Define Your Unique Scenario
+
+Players:  Contains information about each player.
+Games: Contains information about each game.
+
+The relationship between these tables is that each player can play multiple games, and each game can only be assigned to a single player at a time.
+
+ 2. Apply Unique Constraints:
+
+Players table: Ensure that each player has a unique `player_id` and unique `username`.
+Games table: Ensure that each `game_title` is unique for each player. For instance, the same player cannot be assigned the same game title twice.
+
+
+CREATE TABLE Players (
+    player_id INT PRIMARY KEY,
+    username VARCHAR(50) UNIQUE NOT NULL,
+    email VARCHAR(100),
+    age INT
+);
+
+ 
+CREATE TABLE Games (
+    game_id INT PRIMARY KEY,
+    game_title VARCHAR(100),
+    player_id INT,
+    genre VARCHAR(50),
+    UNIQUE (game_title, player_id), 
+    FOREIGN KEY (player_id) REFERENCES Players(player_id)
+);
+
+
+
+
+3. Alter the Structure:
+
+ALTER TABLE Games
+ADD release_year INT
+
+4. Reflection:
+- Data Accuracy: Unique constraints on `username` in the Players table and on `game_title` for each player in the Games table prevent duplicate entries, ensuring each player and game is accurately recorded.
+
+- Data Integrity: The foreign key relationship requires that each game be linked to an active player in the Players table, reducing the risk of orphaned records.
+
+- Simplified Data Retrieval:  The unique constraint on `game_title` and `player_id` allows you to quickly identify each player’s specific games, making it easier to retrieve records and avoid duplicates.
