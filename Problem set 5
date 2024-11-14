@@ -2,45 +2,38 @@ Problem Set 5: Challenge - Personalized Database Design scenario with unique con
 
 1. Define Your Unique Scenario
 
-Players:  Contains information about each player.
-Games: Contains information about each game.
+Movie: Contains information about each movie.
+Director: Contains information about each director.
 
-The relationship between these tables is that each player can play multiple games, and each game can only be assigned to a single player at a time.
+The relationship between these tables is that each director can create a multiple movie, and each movie can only be assigned to a single director at a time.
 
  2. Apply Unique Constraints:
 
-Players table: Ensure that each player has a unique `player_id` and unique `username`.
-Games table: Ensure that each `game_title` is unique for each player. For instance, the same player cannot be assigned the same game title twice.
+JM_Movie table: Ensure that each movie has a unique `movie_id` and unique `movie_title`.
+MV_Director table: Ensure that each `director_name` is unique for each movie. For instance, the same director cannot be assigned the same movie title twice.
 
+CREATE TABLE JM_Movie(
+    movie_id NUMBER PRIMARY KEY,
+    movie_title VARCHAR2(50) UNIQUE);
 
-CREATE TABLE Players (
-    player_id INT PRIMARY KEY,
-    username VARCHAR(50) UNIQUE NOT NULL,
-    email VARCHAR(100),
-    age INT
+CREATE TABLE MV_Director (
+    director_id NUMBER PRIMARY KEY,
+    director_name VARCHAR(100),
+    movie_id NUMBER,
+    UNIQUE (movie_id, director_name),
+    FOREIGN KEY (movie_id) REFERENCES Director(director_id)
 );
-
- 
-CREATE TABLE Games (
-    game_id INT PRIMARY KEY,
-    game_title VARCHAR(100),
-    player_id INT,
-    genre VARCHAR(50),
-    UNIQUE (game_title, player_id), 
-    FOREIGN KEY (player_id) REFERENCES Players(player_id)
-);
-
-
 
 
 3. Alter the Structure:
 
-ALTER TABLE Games
-ADD release_year INT
+ALTER TABLE JM_movie
+ADD year_release INT
+
 
 4. Reflection:
-- Data Accuracy: Unique constraints on `username` in the Players table and on `game_title` for each player in the Games table prevent duplicate entries, ensuring each player and game is accurately recorded.
+- Data Accuracy: Unique constraints on 'movie_title' in the JM_Movie table and on `director_name` for each director in the JM_Movie table prevent duplicate entries, ensuring each movie and director is accurately recorded.
 
-- Data Integrity: The foreign key relationship requires that each game be linked to an active player in the Players table, reducing the risk of orphaned records.
+- Data Integrity: The foreign key relationship requires that each movie be linked to an active director in the MV_Director table, reducing the risk of orphaned records.
 
-- Simplified Data Retrieval:  The unique constraint on `game_title` and `player_id` allows you to quickly identify each player’s specific games, making it easier to retrieve records and avoid duplicates.
+- Simplified Data Retrieval:  The unique constraint on `movie_id` and `director_name` allows you to quickly identify each director’s specific movie, making it easier to retrieve records and avoid duplicates.
