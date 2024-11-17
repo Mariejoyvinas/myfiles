@@ -1,0 +1,104 @@
+Task A:
+
+CREATE TABLE audit_log (
+    log_id INT PRIMARY KEY,
+    action_type VARCHAR2(50),
+    log_message VARCHAR2(255),
+    log_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
+CREATE OR REPLACE TRIGGER trg_before_delete_students
+BEFORE DELETE ON students
+FOR EACH ROW
+BEGIN
+    INSERT INTO audit_log (action_type, log_message)
+    VALUES (
+        'DELETE',
+        'Student Deleted: ID = ' || :OLD.student_id || 
+        ', Name = ' || :OLD.first_name || ' ' || :OLD.last_name
+    );
+END;
+
+
+
+INSERT INTO students (student_id, first_name, last_name)
+VALUES (1, 'John', 'Doe');
+DELETE FROM students WHERE student_id = 1;
+SELECT * FROM audit_log;
+
+Task B:
+
+CREATE INDEX idx_order_date ON orders(order_date);
+
+Queries filtering or sorting by order_date (e.g., WHERE order_date > '2024-01-01') will execute faster because the database can quickly locate the relevant rows.
+
+Indexes speed up read operations but may slightly slow down write operations (INSERT, UPDATE, DELETE) because the index needs to be updated.
+
+
+Task C:
+CREATE OR REPLACE VIEW low_stock_products AS
+SELECT product_id, product_name, stock
+FROM products
+WHERE stock < 50;
+
+
+SELECT * FROM low_stock_products;
+
+INSERT INTO products (product_id, product_name, stock)
+VALUES (1, 'Laptop', 30), (2, 'Mouse', 100), (3, 'Keyboard', 40);
+
+SELECT * FROM low_stock_products;
+
+Review Questions
+
+1. BEFORE vs. AFTER Triggers
+
+BEFORE Trigger: Executes before the event (e.g., INSERT, UPDATE, DELETE) occurs. Used to validate or modify data before it’s written.
+Example: Prevent negative values in a column before insertion.
+
+AFTER Trigger: Executes after the event. Used to log actions or enforce business rules.
+Example: Log details after a record is deleted.
+
+2. Why Use an Index on a Frequently Queried Column?
+
+Purpose: To speed up query execution by enabling the database to locate rows efficiently without scanning the entire table.
+
+Example: Indexing a customer_id column in a sales table can improve query performance for searches, filtering, or sorting by customer.
+
+3. How Views Simplify Querying and Enhance Data Security
+
+Simplification:
+
+Combine complex queries into reusable, easy-to-query views.
+
+Example: A view consolidating employee details with their department names.
+
+Security:
+
+Limit user access to specific columns or rows without exposing the underlying table.
+
+Example: A view showing only non-sensitive columns to specific users.
+
+4. ROLLBACK vs. SAVEPOINT
+
+ROLLBACK:
+
+Reverts the database to its state before the transaction began.
+
+Use Case: Canceling an entire transaction due to an error.
+
+SAVEPOINT:
+
+Creates a checkpoint within a transaction. You can roll back to this point without undoing the entire transaction.
+
+Use Case: Managing large transactions by undoing only specific changes.
+
+5. Why is Backup Critical in Database Management?
+
+Data Recovery: Ensures data can be restored in case of corruption, hardware failure, or accidental deletion.
+
+Business Continuity: Minimizes downtime and prevents loss of critical data during disasters.
+
+Compliance: Meets regulatory requirements for data retention and disaster recovery plans.
+
